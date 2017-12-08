@@ -28,7 +28,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Makeable\\LaravelStripeObjects\\Providers\\EscrowServiceProvider"
+                "Makeable\\LaravelStripeObjects\\Providers\\StripeObjectsServiceProvider"
             ]
         }
     },

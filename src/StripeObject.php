@@ -8,6 +8,11 @@ use Illuminate\Support\Str;
 class StripeObject extends Eloquent
 {
     /**
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * @var null
      */
     public $objectClass = null;
@@ -25,6 +30,7 @@ class StripeObject extends Eloquent
      * @var array
      */
     protected $casts = [
+        'id' => 'string',
         'data' => 'array',
     ];
 
@@ -46,7 +52,7 @@ class StripeObject extends Eloquent
         static::created(function (StripeObject $object) {
             if ($object->relatesWith) {
                 list($related, $tag) = $object->relatesWith;
-                $object->relations(get_class($related))->attach($object->id, ['tag' => $tag]);
+                $object->relations(get_class($related))->attach($related->id, ['tag' => $tag]);
             }
         });
     }
@@ -56,13 +62,23 @@ class StripeObject extends Eloquent
      *
      * @return StripeObject
      */
-    public static function store(\Stripe\StripeObject $object)
+    public static function createFromObject(\Stripe\StripeObject $object)
     {
-        return static::create([
+        return (new static())->store($object);
+    }
+
+    /**
+     * @param \Stripe\StripeObject $object
+     *
+     * @return StripeObject
+     */
+    public function store(\Stripe\StripeObject $object)
+    {
+        return tap($this->fill([
             'id' => $object->id,
             'data' => $object->jsonSerialize(),
             'type' => class_basename($object),
-        ]);
+        ]))->save();
     }
 
     /**
@@ -80,7 +96,8 @@ class StripeObject extends Eloquent
      */
     public function relations($class)
     {
-        return $this->morphedByMany($class, 'related', 'stripe_object_relations')->withPivot('tag');
+        return $this->morphedByMany($class, 'related', 'stripe_object_relations')
+            ->withPivot(['tag', 'created_at', 'updated_at']);
     }
 
     /**

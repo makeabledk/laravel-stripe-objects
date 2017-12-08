@@ -25,12 +25,6 @@ class TestCase extends BaseTestCase
         parent::setUp();
 
         $this->setUpFactories($this->app);
-
-        // Bind fake payment gateway
-//        app()->singleton(PaymentGatewayContract::class, PaymentGateway::class);
-
-        // Put Amount in test mode so we don't need a currency implementation
-//        Amount::test();
     }
 
     /**
@@ -50,9 +44,6 @@ class TestCase extends BaseTestCase
         $app->useEnvironmentPath(__DIR__.'/..');
         $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
         $app->register(StripeObjectsServiceProvider::class);
-//        $app->afterResolving('migrator', function ($migrator) {
-//            $migrator->path(__DIR__.'/migrations/');
-//        });
 
         return $app;
     }

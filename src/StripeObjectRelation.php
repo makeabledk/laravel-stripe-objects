@@ -9,7 +9,9 @@ class StripeObjectRelation
 {
     use HasRelationships;
 
-    protected $model, $class, $tag;
+    protected $model;
+    protected $class;
+    protected $tag;
 
     /**
      * StripeObjectRelation constructor.
@@ -31,7 +33,7 @@ class StripeObjectRelation
     public function hasMany()
     {
         return $this->model->morphToMany($this->class, 'related', 'stripe_object_relations', 'related_id')
-            ->withPivot('tag')
+            ->withPivot(['tag', 'created_at', 'updated_at'])
             ->wherePivot('tag', $this->tag);
     }
 

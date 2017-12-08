@@ -2,11 +2,10 @@
 
 namespace Makeable\LaravelStripeObjects\Tests\Feature;
 
-use Makeable\LaravelCurrencies\Amount;
 use Makeable\LaravelStripeObjects\StripeCustomer;
 use Makeable\LaravelStripeObjects\Tests\DatabaseTestCase;
 use Makeable\LaravelStripeObjects\Tests\Fakes\User;
-use Makeable\LaravelStripeObjects\Transaction;
+use Stripe\Customer;
 
 class HasStripeCustomerTest extends DatabaseTestCase
 {
@@ -15,5 +14,15 @@ class HasStripeCustomerTest extends DatabaseTestCase
     {
         $this->assertInstanceOf(StripeCustomer::class, $customer = $this->user()->stripeCustomer());
         $this->assertFalse($customer->exists);
+    }
+
+    /** @test **/
+    function it_attaches_stripe_customer_when_stored()
+    {
+        $user = $this->user();
+        $customer = $user->stripeCustomer()->store(new Customer('cu_123'));
+
+        $this->assertTrue($user->stripeCustomer()->is($customer));
+        $this->assertTrue($customer->relations(User::class)->first()->is($user));
     }
 }
