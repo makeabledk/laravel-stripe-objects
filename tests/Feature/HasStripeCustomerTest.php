@@ -10,14 +10,14 @@ use Stripe\Customer;
 class HasStripeCustomerTest extends DatabaseTestCase
 {
     /** @test **/
-    function it_returns_a_none_existing_stripe_customer_as_default()
+    public function it_returns_a_none_existing_stripe_customer_as_default()
     {
         $this->assertInstanceOf(StripeCustomer::class, $customer = $this->user()->stripeCustomer());
         $this->assertFalse($customer->exists);
     }
 
     /** @test **/
-    function it_attaches_stripe_customer_when_stored()
+    public function it_attaches_stripe_customer_when_stored()
     {
         $user = $this->user();
         $customer = $user->stripeCustomer()->store(new Customer('cu_123'));

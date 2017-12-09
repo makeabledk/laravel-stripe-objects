@@ -2,21 +2,10 @@
 
 namespace Makeable\LaravelStripeObjects\Tests;
 
-use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Makeable\LaravelCurrencies\Amount;
-use Makeable\LaravelStripeObjects\Contracts\PaymentGatewayContract;
-use Makeable\LaravelStripeObjects\Interactions\Interact;
 use Makeable\LaravelStripeObjects\Providers\StripeObjectsServiceProvider;
-use Makeable\LaravelStripeObjects\Contracts\SalesAccountContract;
 use Makeable\LaravelStripeObjects\Tests\Fakes\User;
-use Makeable\LaravelStripeObjects\Tests\Fakes\PaymentGateway;
-use Makeable\LaravelStripeObjects\Tests\Fakes\Provider;
-use Makeable\LaravelStripeObjects\SalesAccount;
-use Makeable\LaravelStripeObjects\Transactable;
-use Makeable\LaravelStripeObjects\Transaction;
-use Makeable\LaravelStripeObjects\Transfer;
 
 class TestCase extends BaseTestCase
 {

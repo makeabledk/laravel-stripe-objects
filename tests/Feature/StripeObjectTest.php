@@ -9,7 +9,7 @@ use Stripe\Customer;
 class StripeObjectTest extends DatabaseTestCase
 {
     /** @test **/
-    function it_can_store_a_stripe_object()
+    public function it_can_store_a_stripe_object()
     {
         $this->assertEquals(1, StripeObject::createFromObject(new Customer(1))->id);
 
@@ -19,7 +19,7 @@ class StripeObjectTest extends DatabaseTestCase
     }
 
     /** @test **/
-    function it_does_not_apply_global_type_scope_on_stripe_object_queries()
+    public function it_does_not_apply_global_type_scope_on_stripe_object_queries()
     {
         StripeObject::createFromObject(new Customer(1));
 
