@@ -1,9 +1,14 @@
 
-# Laravel Escrow
+# Laravel Stripe Objects
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/makeabledk/laravel-production-seeding.svg?style=flat-square)](https://packagist.org/packages/makeabledk/laravel-production-seeding)
-[![Build Status](https://img.shields.io/travis/makeabledk/laravel-production-seeding/master.svg?style=flat-square)](https://travis-ci.org/makeabledk/laravel-production-seeding)
-[![StyleCI](https://styleci.io/repos/95552885/shield?branch=master)](https://styleci.io/repos/95552885)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/makeabledk/laravel-stripe-objects.svg?style=flat-square)](https://packagist.org/packages/makeabledk/laravel-stripe-objects)
+[![Build Status](https://img.shields.io/travis/makeabledk/laravel-stripe-objects/master.svg?style=flat-square)](https://travis-ci.org/makeabledk/laravel-stripe-objects)
+[![StyleCI](https://styleci.io/repos/101027784/shield?branch=master)](https://styleci.io/repos/101027784)
+
+
+**IMPORTANT NOTICE** 
+
+This is a package used internally by makeabledk and may not follow SemVer. Use it at your own risk.
 
 
 ## Install
@@ -11,12 +16,8 @@
 You can install this package via composer:
 
 ``` bash
-composer require makeabledk/laravel-stripe
+composer require makeabledk/laravel-escrow
 ```
-
-## Usage
-
-## Examples
 
 ## Change log
 

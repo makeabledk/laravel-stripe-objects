@@ -46,7 +46,9 @@ class StripeObject extends Eloquent
     public static function boot()
     {
         static::addGlobalScope('type', function ($query) {
-            return $query->where('type', class_basename((new static())->objectClass));
+            return $query->when(static::class !== StripeObject::class, function ($query) {
+                $query->where('type', class_basename((new static())->objectClass));
+            });
         });
 
         static::created(function (StripeObject $object) {
