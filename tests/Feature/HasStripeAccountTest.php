@@ -10,14 +10,14 @@ use Stripe\Account;
 class HasStripeAccountTest extends DatabaseTestCase
 {
     /** @test **/
-    function it_returns_a_none_existing_stripe_account_as_default()
+    public function it_returns_a_none_existing_stripe_account_as_default()
     {
         $this->assertInstanceOf(StripeAccount::class, $account = $this->user()->stripeAccount());
         $this->assertFalse($account->exists);
     }
 
     /** @test **/
-    function it_attaches_stripe_account_when_stored()
+    public function it_attaches_stripe_account_when_stored()
     {
         $user = $this->user();
         $account = $user->stripeAccount()->store(new Account(1));

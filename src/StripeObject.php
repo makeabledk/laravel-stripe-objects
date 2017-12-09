@@ -120,7 +120,7 @@ class StripeObject extends Eloquent
      */
     public function retrieve()
     {
-        if (!method_exists($this->objectClass, 'retrieve')) {
+        if (! method_exists($this->objectClass, 'retrieve')) {
             throw new \BadMethodCallException('Cannot retrieve stripe object of type '.$this->objectClass);
         }
 
