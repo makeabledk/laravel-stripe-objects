@@ -77,10 +77,9 @@ class StripeObject extends Eloquent
      */
     public function store(\Stripe\StripeObject $object)
     {
-        $model = $this->id == $object->id ? $this : new static();
+        $model = static::firstOrNew(['id' => $object->id]);
         $model->relatesWith = $this->relatesWith;
         $model->fill([
-            'id' => $object->id,
             'data' => $object->jsonSerialize(),
             'type' => class_basename($object),
         ]);
