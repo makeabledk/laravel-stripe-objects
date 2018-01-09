@@ -2,6 +2,7 @@
 
 namespace Makeable\LaravelStripeObjects;
 
+use DB;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Str;
 
@@ -76,11 +77,21 @@ class StripeObject extends Eloquent
      */
     public function store(\Stripe\StripeObject $object)
     {
-        return tap($this->fill([
+        $model = $this->id == $object->id ? $this : new static();
+        $model->relatesWith = $this->relatesWith;
+        $model->fill([
             'id' => $object->id,
             'data' => $object->jsonSerialize(),
             'type' => class_basename($object),
-        ]))->save();
+        ]);
+        $model->save();
+
+        // Cascade relations
+        if ($this->exists && $this->id !== $model->id) {
+            DB::table('stripe_object_relations')->where('stripe_object_id', $this->id)->update(['stripe_object_id' => $model->id]);
+        }
+
+        return $model;
     }
 
     /**
