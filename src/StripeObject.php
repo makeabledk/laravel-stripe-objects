@@ -22,6 +22,7 @@ class StripeObject extends Eloquent
      * @var string
      */
     public $table = 'stripe_objects';
+
     /**
      * @var array
      */
@@ -33,6 +34,7 @@ class StripeObject extends Eloquent
     protected $casts = [
         'id' => 'string',
         'data' => 'array',
+        'meta' => 'array'
     ];
 
     /**
@@ -63,25 +65,28 @@ class StripeObject extends Eloquent
     /**
      * @param \Stripe\StripeObject $object
      *
+     * @param null $meta
      * @return StripeObject
      */
-    public static function createFromObject(\Stripe\StripeObject $object)
+    public static function createFromObject(\Stripe\StripeObject $object, $meta = null)
     {
-        return (new static())->store($object);
+        return (new static())->store($object, $meta);
     }
 
     /**
      * @param \Stripe\StripeObject $object
      *
+     * @param null $meta
      * @return StripeObject
      */
-    public function store(\Stripe\StripeObject $object)
+    public function store(\Stripe\StripeObject $object, $meta = null)
     {
         $model = static::firstOrNew(['id' => $object->id]);
         $model->relatesWith = $this->relatesWith;
         $model->fill([
-            'data' => $object->jsonSerialize(),
             'type' => class_basename($object),
+            'data' => $object->jsonSerialize(),
+            'meta' => $meta,
         ]);
         $model->save();
 
