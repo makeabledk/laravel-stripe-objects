@@ -34,7 +34,7 @@ class StripeObject extends Eloquent
     protected $casts = [
         'id' => 'string',
         'data' => 'array',
-        'meta' => 'array'
+        'meta' => 'array',
     ];
 
     /**
