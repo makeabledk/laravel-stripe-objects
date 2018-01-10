@@ -27,7 +27,7 @@ class StripeObjectTest extends DatabaseTestCase
     }
 
     /** @test **/
-    function it_can_store_meta_data()
+    public function it_can_store_meta_data()
     {
         $object = StripeObject::createFromObject(new Customer(1), ['foo' => 'bar']);
 
