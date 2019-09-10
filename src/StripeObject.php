@@ -51,14 +51,14 @@ class StripeObject extends Eloquent
         parent::boot();
 
         static::addGlobalScope('type', function ($query) {
-            return $query->when(static::class !== StripeObject::class, function ($query) {
+            return $query->when(static::class !== self::class, function ($query) {
                 $query->where('type', class_basename((new static())->objectClass));
             });
         });
 
-        static::created(function (StripeObject $object) {
+        static::created(function (self $object) {
             if ($object->relatesWith) {
-                list($related, $tag) = $object->relatesWith;
+                [$related, $tag] = $object->relatesWith;
                 $object->relations(get_class($related))->attach($related->id, ['tag' => $tag]);
             }
         });
